@@ -3,23 +3,14 @@ package main
 import (
 	"log/slog"
 
+	"github.com/DavidNix/indie/server"
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/compress"
-	"github.com/gofiber/fiber/v2/middleware/recover"
-	"github.com/gofiber/fiber/v2/middleware/requestid"
-	slogfiber "github.com/samber/slog-fiber"
 	"github.com/spf13/cobra"
 	"golang.org/x/sync/errgroup"
 )
 
-func server(cmd *cobra.Command, args []string) error {
-	app := fiber.New()
-
-	// Default middleware
-	app.Use(recover.New())
-	app.Use(compress.New())
-	app.Use(requestid.New())
-	app.Use(slogfiber.New(slog.Default())) // Customize logger here
+func runServer(cmd *cobra.Command, args []string) error {
+	app := server.New()
 
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.SendString("Hello, World 👋!")

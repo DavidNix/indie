@@ -6,6 +6,7 @@ import (
 	"os"
 	"os/signal"
 
+	"github.com/DavidNix/indie/server"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -20,7 +21,7 @@ func main() {
 	}
 
 	root := cobra.Command{
-		RunE: server,
+		RunE: server.server,
 	}
 
 	// Run root command
