@@ -1,9 +1,13 @@
 # Indie
-A Go stack for indie hacker or early stage projects.
+An opinionated Go stack for the indie hacker or early stage projects.
 
 Why does JS have all the fun?
 
-Let's use a Go stack for quickly building web-based projects.
+Let's use a Go stack for quickly building ideas.
+
+Why not Rails, Django, or Phoenix?
+
+Sure, if you enjoy the hell that is dynamically typed languages.
 
 ## The Stack
 - Go (duh)
