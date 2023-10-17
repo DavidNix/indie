@@ -1,0 +1,67 @@
+# Full reference: https://github.com/golangci/golangci-lint/blob/master/.golangci.reference.yml
+
+run:
+  timeout: 5m
+  modules-download-mode: readonly
+  skip-dirs:
+    # I often has a poc dir for testing
+    - poc
+
+linters-settings:
+  depguard:
+    rules:
+      tests:
+        deny:
+          - pkg: github.com/stretchr/testify/assert
+            desc: "Use github.com/stretchr/testify/require instead of testify/assert"
+  govet:
+    check-shadowing: true
+    disable:
+      # We set GOEXPERIMENT=loopvar and will upgrade to 1.22 when ready.
+      - loopclosure
+  misspell:
+    locale: US
+  nakedret:
+    # make an issue if func has more lines of code than this setting and it has naked returns; default is 30
+    max-func-lines: 0 # completely disallow naked returns
+  nolintlint:
+    allow-leading-space: true # don't require machine-readable nolint directives (i.e. with no leading space)
+    allow-unused: false # report any unused nolint directives
+    require-explanation: false # don't require an explanation for nolint directives
+    require-specific: false # don't require nolint directives to be specific about which linter is being skipped
+
+linters:
+  disable-all: true
+  enable:
+    - asasalint
+    - bodyclose
+    - depguard
+    - errcheck
+    - errname
+    - errorlint
+    - exportloopref
+    - forbidigo
+    - forcetypeassert
+    - gochecknoinits
+    - gocritic
+    - gofumpt
+    - goimports
+    - goprintffuncname
+    - gosimple
+    - govet
+    - ineffassign
+    - ireturn
+    - misspell
+    - nakedret
+    - noctx
+    - nolintlint
+    - paralleltest
+    - reassign
+    - rowserrcheck
+    - sqlclosecheck
+    - staticcheck
+    - stylecheck # replacement for golint
+    - tenv
+    - unconvert
+    - unused
+    - whitespace

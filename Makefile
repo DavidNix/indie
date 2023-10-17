@@ -6,14 +6,22 @@ help: ## Print this help message
 
 .PHONY: setup
 setup: ## Setup your local dev environment. Run this once after cloning the repo.
-	@# Golangci-lint does not recommend using `go run` to install
+	@# golangci-lint does not recommend using `go get` to install
 	brew install golangci-lint
 	brew upgrade golangci-lint
 
 .PHONY: run
 run:
 	@go generate ./...
-	@go run -mod=mod -race main.go
+	@GOEXPERIMENT=loopvar go run -mod=mod -race main.go
+
+.PHONY: vet
+vet:
+	@golangci-lint run
+
+.PHONY: test
+test:
+	@go test -race -cover -timeout=60s ./...
 
 .PHONY: ent
 ent: ## Run ent codegen. E.g. make ent new User
