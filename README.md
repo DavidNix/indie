@@ -11,6 +11,7 @@ Sure, if you enjoy the hell that is dynamically typed languages.
 
 ## The Stack
 - Go (duh)
+- [Viper](https://github.com/spf13/viper) and [Cobra](https://github.com/spf13/cobra) for configuration and CLI
 - [Fiber](https://gofiber.io) for web server
 - [HTMX](https://htmx.org) for dynamic web pages
 - [Ent](https://entgo.io) for ORM
