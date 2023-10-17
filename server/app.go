@@ -2,6 +2,7 @@ package server
 
 import (
 	"log/slog"
+	"time"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/compress"
@@ -12,7 +13,11 @@ import (
 )
 
 func New() *fiber.App {
-	app := fiber.New()
+	app := fiber.New(fiber.Config{
+		ReadTimeout:  60 * time.Second,
+		WriteTimeout: 60 * time.Second,
+		IdleTimeout:  120 * time.Second,
+	})
 
 	// Middleware stack
 	app.Use(
