@@ -13,7 +13,7 @@ setup: ## Setup your local dev environment. Run this once after cloning the repo
 .PHONY: run
 run:
 	@go generate ./...
-	@GOEXPERIMENT=loopvar go run -mod=mod -race main.go
+	@GOEXPERIMENT=loopvar go run -mod=mod -race .
 
 .PHONY: vet
 vet:

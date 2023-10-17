@@ -20,18 +20,14 @@ func main() {
 	}
 
 	root := cobra.Command{
-		RunE: func(cmd *cobra.Command, args []string) error {
-			_, err := fmt.Fprint(os.Stdout, "Hello, world!\n")
-			return err
-		},
+		RunE: server,
 	}
 
 	// Run root command
-	ctx, cancel := signal.NotifyContext(context.Background())
+	ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt)
 	err := root.ExecuteContext(ctx)
 	cancel()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "%+v\n", err)
 		os.Exit(1)
 	}
 }
