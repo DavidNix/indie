@@ -23,9 +23,7 @@ func New() *fiber.App {
 		csrf.New(),
 	)
 
-	app.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("Hello, World 👋!")
-	})
+	routes(app)
 
 	return app
 }
