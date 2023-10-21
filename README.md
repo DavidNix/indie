@@ -1,3 +1,5 @@
+# WARNING: THIS IS A WIP!
+
 # Indie
 An opinionated Go stack for the indie hacker or early stage projects.
 
