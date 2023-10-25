@@ -10,7 +10,7 @@ import (
 )
 
 func runServer(cmd *cobra.Command, args []string) error {
-	app := server.New()
+	app := server.NewApp()
 
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.SendString("Hello, World 👋!")

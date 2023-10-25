@@ -10,7 +10,7 @@ import (
 func TestExample(t *testing.T) {
 	t.Parallel()
 
-	app := New()
+	app := NewApp()
 	r := httptest.NewRequest("GET", "/", nil)
 	resp, err := app.Test(r)
 	require.NoError(t, err)
