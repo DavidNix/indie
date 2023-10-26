@@ -1,6 +1,7 @@
 package server
 
 import (
+	"errors"
 	"log/slog"
 	"time"
 
@@ -19,14 +20,17 @@ import (
 // Finally, it initializes the routes for the application.
 func NewApp() *fiber.App {
 	app := fiber.New(fiber.Config{
+		ErrorHandler: errorHandler,
+		IdleTimeout:  120 * time.Second,
 		ReadTimeout:  60 * time.Second,
 		WriteTimeout: 60 * time.Second,
-		IdleTimeout:  120 * time.Second,
 	})
 
 	// Middleware stack
 	app.Use(
-		recover.New(),
+		recover.New(recover.Config{
+			EnableStackTrace: true,
+		}),
 		compress.New(),
 		slogfiber.New(slog.Default()),
 		helmet.New(),
@@ -37,4 +41,27 @@ func NewApp() *fiber.App {
 	routes(app)
 
 	return app
+}
+
+func errorHandler(c *fiber.Ctx, err error) error {
+	if err == nil {
+		return nil
+	}
+
+	code := fiber.StatusInternalServerError
+	var e *fiber.Error
+	if errors.As(err, &e) {
+		code = e.Code
+	}
+
+	slog.Error(err.Error(), "status", code)
+
+	if code >= 500 {
+		// Obfuscate internal server errors.
+		return c.Status(code).SendString(fiber.NewError(code).Error())
+	}
+
+	c.Status(code).SendString(e.Error())
+
+	return nil
 }
