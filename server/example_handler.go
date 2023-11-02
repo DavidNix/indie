@@ -7,7 +7,8 @@ import (
 
 func userListHandler(client *ent.Client) func(c *fiber.Ctx) error {
 	return func(c *fiber.Ctx) error {
-		users, err := client.User.Query().All(c.Context())
+		// IMPORTANT: Be sure to use the UserContext() to prevent data races when server is shutdown.
+		users, err := client.User.Query().All(c.UserContext())
 		if err != nil {
 			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 				"error": "Failed to retrieve users",
