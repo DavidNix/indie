@@ -11,15 +11,15 @@ setup: ## Setup your local dev environment. Run this once after cloning the repo
 	brew upgrade golangci-lint
 
 .PHONY: run
-run: gen
+run: ## Run the app
 	@GOEXPERIMENT=loopvar go run -mod=mod -race .
 
 .PHONY: vet
-vet:
+vet: ## Run vet and linters
 	@golangci-lint run
 
 .PHONY: test
-test:
+test: ## Run unit tests
 	@go test -race -cover -timeout=60s ./...
 
 .PHONY: ent

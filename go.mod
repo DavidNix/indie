@@ -5,6 +5,7 @@ go 1.21
 require (
 	entgo.io/ent v0.12.4
 	github.com/gofiber/fiber/v2 v2.50.0
+	github.com/mattn/go-sqlite3 v1.14.17
 	github.com/samber/slog-fiber v1.5.1
 	github.com/spf13/cobra v1.7.0
 	github.com/spf13/viper v1.17.0

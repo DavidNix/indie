@@ -5,6 +5,7 @@ import (
 	"log/slog"
 	"time"
 
+	"github.com/DavidNix/indie/ent"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/compress"
 	"github.com/gofiber/fiber/v2/middleware/csrf"
@@ -18,7 +19,7 @@ import (
 // It sets read, write and idle timeouts for the server and adds middleware for recovery,
 // compression, logging, security headers and CSRF protection.
 // Finally, it initializes the routes for the application.
-func NewApp() *fiber.App {
+func NewApp(client *ent.Client) *fiber.App {
 	app := fiber.New(fiber.Config{
 		ErrorHandler: errorHandler,
 		IdleTimeout:  120 * time.Second,
@@ -38,7 +39,7 @@ func NewApp() *fiber.App {
 		favicon.New(),
 	)
 
-	routes(app)
+	routes(app, client)
 
 	return app
 }
