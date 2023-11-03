@@ -1,12 +1,10 @@
 package server
 
 import (
-	"errors"
 	"log/slog"
 	"time"
 
 	"github.com/DavidNix/indie/ent"
-	"github.com/gofiber/fiber/v2"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	slogecho "github.com/samber/slog-echo"
@@ -21,6 +19,7 @@ func NewApp(client *ent.Client) *echo.Echo {
 	app.Server.ReadTimeout = 60 * time.Second
 	app.Server.WriteTimeout = 60 * time.Second
 	app.Server.IdleTimeout = 120 * time.Second
+	app.IPExtractor = echo.ExtractIPFromXFFHeader() // TODO: Change based on your LB or reverse proxy, https://echo.labstack.com/docs/ip-address.
 
 	app.Use(
 		middleware.RequestID(),
@@ -35,30 +34,7 @@ func NewApp(client *ent.Client) *echo.Echo {
 		middleware.BodyLimit("1M"),
 	)
 
-	routes(app, client)
+	addRoutes(app, client)
 
 	return app
-}
-
-func errorHandler(c *fiber.Ctx, err error) error {
-	if err == nil {
-		return nil
-	}
-
-	code := fiber.StatusInternalServerError
-	var e *fiber.Error
-	if errors.As(err, &e) {
-		code = e.Code
-	}
-
-	slog.Error(err.Error(), "status", code)
-
-	if code >= 500 {
-		// Obfuscate internal server errors.
-		return c.Status(code).SendString(fiber.NewError(code).Error())
-	}
-
-	c.Status(code).SendString(e.Error())
-
-	return nil
 }

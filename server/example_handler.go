@@ -1,20 +1,18 @@
 package server
 
 import (
+	"net/http"
+
 	"github.com/DavidNix/indie/ent"
-	"github.com/gofiber/fiber/v2"
+	"github.com/labstack/echo/v4"
 )
 
-func userListHandler(client *ent.Client) func(c *fiber.Ctx) error {
-	return func(c *fiber.Ctx) error {
-		users, err := client.User.Query().All(c.UserContext())
+func userIndexHandler(client *ent.Client) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		users, err := client.User.Query().All(c.Request().Context())
 		if err != nil {
-			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-				"error": "Failed to retrieve users",
-			})
+			return err
 		}
-
-		// TODO: Don't return the raw entities. Only done here for convenience.
-		return c.JSON(users)
+		return c.JSON(http.StatusOK, users)
 	}
 }

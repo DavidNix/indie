@@ -12,7 +12,7 @@ setup: ## Setup your local dev environment. Run this once after cloning the repo
 
 .PHONY: run
 run: ## Run the app
-	@GOEXPERIMENT=loopvar go run -mod=mod -race .
+	@GOEXPERIMENT=loopvar go run -mod=readonly -race .
 
 .PHONY: vet
 vet: ## Run vet and linters
@@ -20,7 +20,7 @@ vet: ## Run vet and linters
 
 .PHONY: test
 test: ## Run unit tests
-	@go test -race -cover -timeout=60s ./...
+	@go test -mod=readonly -race -cover -timeout=60s ./...
 
 .PHONY: ent
 ent: ## Run ent codegen. E.g. make ent new User
