@@ -1,0 +1,1 @@
+export DATABASE_URL="file:indie?mode=memory&cache=shared&_fk=1"

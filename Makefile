@@ -11,21 +11,24 @@ setup: ## Setup your local dev environment. Run this once after cloning the repo
 	brew upgrade golangci-lint
 
 .PHONY: run
-run:
-	@go generate ./...
-	@GOEXPERIMENT=loopvar go run -mod=mod -race main.go
+run: ## Run the app
+	@GOEXPERIMENT=loopvar go run -mod=readonly -race .
 
 .PHONY: vet
-vet:
+vet: ## Run vet and linters
 	@golangci-lint run
 
 .PHONY: test
-test:
-	@go test -race -cover -timeout=60s ./...
+test: ## Run unit tests
+	@go test -mod=readonly -race -cover -timeout=60s ./...
 
 .PHONY: ent
 ent: ## Run ent codegen. E.g. make ent new User
 	@go run -mod=mod entgo.io/ent/cmd/ent $(filter-out $@,$(MAKECMDGOALS))
+
+.PHONY: gen
+gen: ## Generate code
+	@go generate ./...
 
 %: # Catch-all target to allow passing arguments to targets without workarounds like ARGS="1 2 3"
 	@:
