@@ -3,6 +3,8 @@
 # Indie
 An opinionated Go stack for the indie hacker or early stage projects.
 
+![indie-logo.png](indie-logo.png)
+
 Why does JS have all the fun?
 
 Let's use a Go stack for quickly building ideas.
