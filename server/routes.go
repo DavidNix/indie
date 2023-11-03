@@ -1,14 +1,15 @@
 package server
 
 import (
+	"net/http"
+
 	"github.com/DavidNix/indie/ent"
-	"github.com/gofiber/fiber/v2"
+	"github.com/labstack/echo/v4"
 )
 
-func routes(app *fiber.App, client *ent.Client) {
-	app.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("Hello, World 👋!")
+func routes(app *echo.Echo, client *ent.Client) {
+	app.GET("/", func(c echo.Context) error {
+		return c.String(http.StatusOK, "Hello, World 👋!")
 	})
-	// Example users index
-	app.Get("/users", userListHandler(client))
+	//app.Get("/users", userListHandler(client))
 }

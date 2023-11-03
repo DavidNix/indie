@@ -1,15 +1,18 @@
 package main
 
 import (
+	"context"
+	"errors"
 	"fmt"
 	"log/slog"
+	"net/http"
 	"os"
+	"time"
 
 	"github.com/DavidNix/indie/ent"
 	"github.com/DavidNix/indie/server"
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/spf13/cobra"
-	"golang.org/x/sync/errgroup"
 )
 
 func runServer(cmd *cobra.Command, args []string) error {
@@ -26,16 +29,18 @@ func runServer(cmd *cobra.Command, args []string) error {
 	}
 
 	app := server.NewApp(client)
-	eg, ctx := errgroup.WithContext(cmd.Context())
-	eg.Go(func() error {
-		slog.Info("Running server", "port", "3000")
-		return app.Listen(":3000")
-	})
-	eg.Go(func() error {
-		<-ctx.Done()
-		slog.Info("Shutting down server")
-		return app.Shutdown()
-	})
 
-	return eg.Wait()
+	go func() {
+		<-cmd.Context().Done()
+		slog.Info("Shutting down server")
+		ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+		defer cancel()
+		_ = app.Shutdown(ctx)
+	}()
+
+	err = app.Start(":3000")
+	if errors.Is(err, http.ErrServerClosed) {
+		return nil
+	}
+	return err
 }
