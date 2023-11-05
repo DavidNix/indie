@@ -50,6 +50,20 @@ Then (assumes you have homebrew installed):
 make setup
 ```
 
+# Features
+
+## Development Speed
+
+Using ent allows automatic migrations. At scale, this is bad. But for iterating quickly, it's great.
+
+Ent lets us use an in-memory sqlite database for unit tests. This is a huge win for speed.
+
+## Reasonable Security
+
+The license still stands that this software is provided **as-is with no warranty**.
+
+But I've tried to make reasonable security decisions such as server timeouts, CSRF protection, and setting secure headers.
+
 # Design Decisions
 
 ## Why Echo?
