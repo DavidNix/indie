@@ -16,9 +16,10 @@ Sure, if you enjoy the hell that is dynamically typed languages.
 
 - Go (duh)
 - [Viper](https://github.com/spf13/viper) and [Cobra](https://github.com/spf13/cobra) for configuration and CLI
-- [Echo](https://echo.labstack.com) for web server
+- [Echo](https://echo.labstack.com) for web server and router
 - [HTMX](https://htmx.org) for dynamic web pages
 - [Ent](https://entgo.io) for database/ORM
+- [Testify](https://github.com/stretchr/testify) for test matchers
 
 ## Use as Project Template
 
@@ -62,7 +63,7 @@ Ent lets us use an in-memory sqlite database for unit tests. This is a huge win 
 
 The license still stands that this software is provided **as-is with no warranty**.
 
-But I've tried to make reasonable security decisions such as server timeouts, CSRF protection, and setting secure headers.
+But I've tried to make reasonable security decisions such as server timeouts, CSRF protection, and secure headers.
 
 # Design Decisions
 
