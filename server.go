@@ -28,6 +28,7 @@ func runServer(cmd *cobra.Command, args []string) error {
 		return fmt.Errorf("failed creating schema resources: %w", err)
 	}
 
+	// TODO: Remove for production, for example demo only.
 	if err = ent.Seed(cmd.Context(), client); err != nil {
 		return fmt.Errorf("failed seeding database: %w", err)
 	}
