@@ -1,7 +1,8 @@
-# WARNING: THIS IS A WIP!
+# WARNING: THIS IS A WORK IN PROGRESS!
 
 # Indie
-An opinionated Go stack for the indie hacker or early stage projects.
+
+Opinionated Go boilerplate for the indie hacker or early stage projects.
 
 Why does JS have all the fun?
 
@@ -12,9 +13,10 @@ Why not Rails, Django, or Phoenix?
 Sure, if you enjoy the hell that is dynamically typed languages.
 
 ## The Stack
+
 - Go (duh)
 - [Viper](https://github.com/spf13/viper) and [Cobra](https://github.com/spf13/cobra) for configuration and CLI
-- [Fiber](https://gofiber.io) for web server
+- [Echo](https://echo.labstack.com) for web server
 - [HTMX](https://htmx.org) for dynamic web pages
 - [Ent](https://entgo.io) for ORM
 
@@ -37,20 +39,33 @@ gonew github.com/DavidNix/indie github.com/<YOUR_USER>/<YOUR_PROJECT_NAME>
 All funneled through `make`.
 
 To see what you can do:
+
 ```sh
 make
 ```
 
 Then (assumes you have homebrew installed):
+
 ```
 make setup
 ```
 
-## OMG an ORM?!?!
+# Design Decisions
+
+## Why Echo?
+
+I first tried [Fiber](https://github.com/gofiber/fiber) which uses [fasthttp](https://github.com/fasthttp/router) as the
+router. Unfortunately, fasthttp has a [nasty race condition](https://twitter.com/davidnix_/status/1720454052973044188)
+when using database/sql. Also, Fiber makes you choose between `c.Context()` and `c.UserContext()` which is confusing.
+
+Also, Echo is one of the older Go http frameworks, so hopefully has the Lindy Effect.
+
+## Wait, an ORM?!
 
 Those who know me will be shocked I'm using an ORM. (I typically despise them.)
 
 But hear me out. In this context (getting a project off the ground at light speed), it's a good fit:
+
 - Validation out of the box.
 - Unit tests with in-memory sqlite.
 - Automatic migrations.
