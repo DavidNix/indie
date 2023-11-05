@@ -18,7 +18,7 @@ Sure, if you enjoy the hell that is dynamically typed languages.
 - [Viper](https://github.com/spf13/viper) and [Cobra](https://github.com/spf13/cobra) for configuration and CLI
 - [Echo](https://echo.labstack.com) for web server
 - [HTMX](https://htmx.org) for dynamic web pages
-- [Ent](https://entgo.io) for ORM
+- [Ent](https://entgo.io) for database/ORM
 
 ## Use as Project Template
 
