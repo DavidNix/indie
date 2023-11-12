@@ -1,10 +1,10 @@
 package server
 
 import (
-	"net/http"
-
 	"github.com/DavidNix/indie/ent"
+	"github.com/DavidNix/indie/server/views"
 	"github.com/labstack/echo/v4"
+	"github.com/samber/lo"
 )
 
 func userIndexHandler(client *ent.Client) echo.HandlerFunc {
@@ -13,6 +13,7 @@ func userIndexHandler(client *ent.Client) echo.HandlerFunc {
 		if err != nil {
 			return err
 		}
-		return c.JSON(http.StatusOK, users)
+		names := lo.Map(users, func(u *ent.User, _ int) string { return u.Name })
+		return views.Render(c, views.ListUsers(names))
 	}
 }

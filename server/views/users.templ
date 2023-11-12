@@ -1,0 +1,12 @@
+package views
+
+templ ListUsers(names []string) {
+	@layout("Users") {
+		<h1>Users</h1>
+		<ul>
+			for _, name := range names {
+				<li>{ name }</li>
+			}
+		</ul>
+	}
+}
