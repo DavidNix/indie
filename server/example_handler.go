@@ -14,7 +14,10 @@ func userIndexHandler(client *ent.Client) echo.HandlerFunc {
 			return err
 		}
 		names := lo.Map(users, func(u *ent.User, _ int) string { return u.Name })
-		return views.Render(c, views.ListUsers(names, csrfToken(c)))
+		if isHTMX(c) {
+			return views.Render(c, views.UserList(names))
+		}
+		return views.Render(c, views.UserIndex(names, csrfToken(c)))
 	}
 }
 

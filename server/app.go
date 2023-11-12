@@ -42,3 +42,7 @@ func NewApp(client *ent.Client) *echo.Echo {
 func csrfToken(c echo.Context) string {
 	return c.Get(middleware.DefaultCSRFConfig.ContextKey).(string)
 }
+
+func isHTMX(c echo.Context) bool {
+	return c.Request().Header.Get("HX-Request") == "true"
+}

@@ -2,17 +2,21 @@ package views
 
 import "fmt"
 
-templ ListUsers(names []string, csrfToken string) {
+templ UserIndex(names []string, csrfToken string) {
 	@Layout("Users") {
 		<h1>Users</h1>
 		<form hx-post="/users" hx-headers={ fmt.Sprintf(`{"X-CSRF-Token": %q}`, csrfToken) }>
 			<input type="text" name="name" value=""/>
 			<input type="submit" value="Create"/>
 		</form>
-		<ul hx-get="/users" hx-trigger="newUser from:body">
-			for _, name := range names {
-				<li>{ name }</li>
-			}
-		</ul>
+		@UserList(names)
 	}
+}
+
+templ UserList(names []string) {
+	<ul id="users" hx-get="/users" hx-trigger="newUser from:body">
+		for _, name := range names {
+			<li>{ name }</li>
+		}
+	</ul>
 }
