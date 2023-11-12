@@ -19,4 +19,5 @@ func TestRobotsTxt(t *testing.T) {
 
 	require.Equal(t, 200, w.Code)
 	require.NotEmpty(t, w.Body.String())
+	require.Contains(t, w.Body.String(), "User-agent: *")
 }
