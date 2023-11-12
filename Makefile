@@ -14,9 +14,12 @@ setup: ## Setup your local dev environment. Run this once after cloning the repo
 run: ## Run the app
 	@GOEXPERIMENT=loopvar go run -mod=readonly -race .
 
+TEMPL = go run -mod=readonly github.com/a-h/templ/cmd/templ
+
 .PHONY: vet
 vet: ## Run vet and linters
-	@golangci-lint run
+	$(TEMPL) fmt
+	golangci-lint run
 
 .PHONY: test
 test: ## Run unit tests
@@ -24,7 +27,8 @@ test: ## Run unit tests
 
 .PHONY: ent
 ent: ## Run ent codegen. E.g. make ent new User
-	@go run -mod=mod entgo.io/ent/cmd/ent $(filter-out $@,$(MAKECMDGOALS))
+	@go run -mod=readonly entgo.io/ent/cmd/ent $(filter-out $@,$(MAKECMDGOALS))
+
 
 .PHONY: gen
 gen: ## Generate code
