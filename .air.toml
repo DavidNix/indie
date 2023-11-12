@@ -3,14 +3,15 @@ testdata_dir = "testdata"
 tmp_dir = "tmp"
 
 [build]
-  args_bin = []
+  args_bin = ["--addr=localhost:3000"]
   bin = "./tmp/main"
-  cmd = "make gen run"
+  cmd = "go build -race -o ./tmp/main"
   delay = 1000
-  exclude_dir = ["assets", "tmp", "vendor", "testdata"]
+  # Exluding ent because it causes Air to infinitely detect changes
+  exclude_dir = ["assets", "tmp", "vendor", "testdata", "ent"]
   exclude_file = []
-  exclude_regex = ["_test.go"]
-  exclude_unchanged = false
+  exclude_regex = ["_test.go", ".*_templ.go"]
+  exclude_unchanged = true
   follow_symlink = false
   full_bin = ""
   include_dir = []
@@ -21,11 +22,11 @@ tmp_dir = "tmp"
   poll = false
   poll_interval = 0
   post_cmd = []
-  pre_cmd = []
+  pre_cmd = ["go generate ./..."]
   rerun = false
-  rerun_delay = 500
+  rerun_delay = 1000
   send_interrupt = true
-  stop_on_error = false
+  stop_on_error = true
 
 [color]
   app = ""
