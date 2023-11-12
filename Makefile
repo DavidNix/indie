@@ -12,23 +12,28 @@ setup: ## Setup your local dev environment. Run this once after cloning the repo
 
 .PHONY: run
 run: ## Run the app
-	@GOEXPERIMENT=loopvar go run -mod=readonly -race .
+	@GOEXPERIMENT=loopvar go run -mod=readonly -race . --addr localhost:3000
 
 .PHONY: vet
 vet: ## Run vet and linters
-	@golangci-lint run
+	golangci-lint run
 
 .PHONY: test
 test: ## Run unit tests
 	@go test -mod=readonly -race -cover -timeout=60s ./...
 
-.PHONY: ent
-ent: ## Run ent codegen. E.g. make ent new User
-	@go run -mod=mod entgo.io/ent/cmd/ent $(filter-out $@,$(MAKECMDGOALS))
-
 .PHONY: gen
 gen: ## Generate code
 	@go generate ./...
+
+AIR = go run -mod=readonly github.com/cosmtrek/air
+.PHONY: watch
+watch: ## Watch and reload code changes
+	@$(AIR)
+
+.PHONY: ent
+ent: ## Run ent codegen. E.g. make ent new User
+	@go run -mod=readonly entgo.io/ent/cmd/ent $(filter-out $@,$(MAKECMDGOALS))
 
 %: # Catch-all target to allow passing arguments to targets without workarounds like ARGS="1 2 3"
 	@:

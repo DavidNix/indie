@@ -12,4 +12,5 @@ func addRoutes(app *echo.Echo, client *ent.Client) {
 		return c.String(http.StatusOK, "Hello, World 👋!")
 	})
 	app.GET("/users", userIndexHandler(client))
+	app.POST("/users", userCreateHandler(client))
 }

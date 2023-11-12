@@ -1,0 +1,19 @@
+package views
+
+templ Layout(title string) {
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+			<script src="https://unpkg.com/htmx.org@1.9.8" integrity="sha384-rgjA7mptc2ETQqXoYC3/zJvkU7K/aP44Y+z7xQuJiVnB/422P/Ak+F/AqFR7E4Wr" crossorigin="anonymous"></script>
+			<title>Example - { title }</title>
+		</head>
+		<body>
+			<main>
+				{ children... }
+			</main>
+		</body>
+	</html>
+}

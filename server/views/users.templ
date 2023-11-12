@@ -1,0 +1,18 @@
+package views
+
+import "fmt"
+
+templ UserIndex(names []string, csrfToken string) {
+	@Layout("Users") {
+		<h1>Users</h1>
+		<form hx-post="/users" hx-headers={ fmt.Sprintf(`{"X-CSRF-Token": %q}`, csrfToken) } hx-swap="beforeend" hx-target="#users">
+			<input type="text" name="name" value=""/>
+			<input type="submit" value="Create"/>
+		</form>
+		<ul id="users">
+			for _, name := range names {
+				<li>{ name }</li>
+			}
+		</ul>
+	}
+}

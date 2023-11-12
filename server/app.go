@@ -38,3 +38,7 @@ func NewApp(client *ent.Client) *echo.Echo {
 
 	return app
 }
+
+func csrfToken(c echo.Context) string {
+	return c.Get(middleware.DefaultCSRFConfig.ContextKey).(string)
+}
