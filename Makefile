@@ -14,11 +14,8 @@ setup: ## Setup your local dev environment. Run this once after cloning the repo
 run: ## Run the app
 	@GOEXPERIMENT=loopvar go run -mod=readonly -race .
 
-TEMPL = go run -mod=readonly github.com/a-h/templ/cmd/templ
-
 .PHONY: vet
 vet: ## Run vet and linters
-	$(TEMPL) fmt
 	golangci-lint run
 
 .PHONY: test
