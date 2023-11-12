@@ -3,10 +3,18 @@ package views
 templ ListUsers(names []string) {
 	@layout("Users") {
 		<h1>Users</h1>
+		@createUser
 		<ul>
 			for _, name := range names {
 				<li>{ name }</li>
 			}
 		</ul>
 	}
+}
+
+templ createUser() {
+	<form action="/users" method="post">
+		<input type="text" name="name" value=""/>
+		<input type="submit" value="Create"/>
+	</form>
 }
