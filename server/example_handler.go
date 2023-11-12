@@ -1,6 +1,9 @@
 package server
 
 import (
+	"fmt"
+	"net/http"
+
 	"github.com/DavidNix/indie/ent"
 	"github.com/DavidNix/indie/server/views"
 	"github.com/labstack/echo/v4"
@@ -14,16 +17,16 @@ func userIndexHandler(client *ent.Client) echo.HandlerFunc {
 			return err
 		}
 		names := lo.Map(users, func(u *ent.User, _ int) string { return u.Name })
-		if isHTMX(c) {
-			return views.Render(c, views.UserList(names))
-		}
 		return views.Render(c, views.UserIndex(names, csrfToken(c)))
 	}
 }
 
 func userCreateHandler(client *ent.Client) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		c.Response().Header().Set("HX-Trigger", "newUser")
-		return client.User.Create().SetName(c.FormValue("name")).Exec(c.Request().Context())
+		user, err := client.User.Create().SetName(c.FormValue("name")).Save(c.Request().Context())
+		if err != nil {
+			return err
+		}
+		return c.HTML(http.StatusOK, fmt.Sprintf(`<li>%s</li>`, user.Name))
 	}
 }
