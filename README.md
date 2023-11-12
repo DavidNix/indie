@@ -1,5 +1,3 @@
-# WARNING: THIS IS A WORK IN PROGRESS!
-
 # Indie
 
 Opinionated Go boilerplate for the indie hacker or early stage projects.
@@ -15,11 +13,12 @@ Sure, if you enjoy the hell that is dynamically typed languages.
 ## The Stack
 
 - Go (duh)
-- [Viper](https://github.com/spf13/viper) and [Cobra](https://github.com/spf13/cobra) for configuration and CLI
+- [Cobra](https://github.com/spf13/cobra) for cli
 - [Echo](https://echo.labstack.com) for web server and router
 - [HTMX](https://htmx.org) for dynamic web pages
 - [Ent](https://entgo.io) for database/ORM
 - [Testify](https://github.com/stretchr/testify) for test matchers
+- [Air](https://github.com/cosmtrek/air) for live reload
 
 ## Use as Project Template
 
@@ -47,9 +46,27 @@ make
 
 Then (assumes you have homebrew installed):
 
-```
+```sh
 make setup
 ```
+
+Generate code:
+```sh
+make gen
+```
+
+Run the server:
+
+```sh
+make run
+```
+
+Live reload:
+
+```sh
+make watch
+```
+Caveat: Any ent (data model) changes will require a manual restart.
 
 # Features
 
