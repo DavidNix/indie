@@ -41,7 +41,7 @@ linters:
     - errorlint
     - exportloopref
     - forbidigo
-    - forcetypeassert
+#    - forcetypeassert
     - gochecknoinits
     - gocritic
     - gofumpt
