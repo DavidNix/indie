@@ -5,7 +5,7 @@ tmp_dir = "tmp"
 [build]
   args_bin = ["--addr=localhost:3000"]
   bin = "./tmp/main"
-  cmd = "go build -race -o ./tmp/main"
+  cmd = "GOEXPERIMENT=loopvar go build -race -o ./tmp/main"
   delay = 1000
   # Exluding ent because it causes Air to infinitely detect changes
   exclude_dir = ["assets", "tmp", "vendor", "testdata", "ent"]
