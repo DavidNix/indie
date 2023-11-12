@@ -10,7 +10,7 @@ import (
 	"time"
 
 	"github.com/DavidNix/indie/ent"
-	"github.com/DavidNix/indie/server"
+	"github.com/DavidNix/indie/http"
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/spf13/cobra"
 )
@@ -33,11 +33,11 @@ func runServer(cmd *cobra.Command, args []string) error {
 		return fmt.Errorf("failed seeding database: %w", err)
 	}
 
-	app := server.NewApp(client)
+	app := http.NewApp(client)
 
 	go func() {
 		<-cmd.Context().Done()
-		slog.Info("Shutting down server")
+		slog.Info("Shutting down http")
 		ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 		defer cancel()
 		_ = app.Shutdown(ctx)
