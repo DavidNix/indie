@@ -26,10 +26,15 @@ test: ## Run unit tests
 ent: ## Run ent codegen. E.g. make ent new User
 	@go run -mod=readonly entgo.io/ent/cmd/ent $(filter-out $@,$(MAKECMDGOALS))
 
-
 .PHONY: gen
 gen: ## Generate code
 	@go generate ./...
+
+AIR = go run -mod=readonly github.com/cosmtrek/air
+.PHONY: watch
+watch: ## Watch and reload code changes
+	@kill $(lsof -t -i:3000) 2>/dev/null || true
+	@$(AIR)
 
 %: # Catch-all target to allow passing arguments to targets without workarounds like ARGS="1 2 3"
 	@:
