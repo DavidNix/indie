@@ -18,9 +18,12 @@ After you create your project, use or discard what you wish.
 - [Cobra](https://github.com/spf13/cobra) for cli
 - [Echo](https://echo.labstack.com) for web server and router
 - [HTMX](https://htmx.org) for dynamic web pages
+- [Templ](https://github.com/a-h/templ) for HTML templates
 - [Ent](https://entgo.io) for database/ORM
-- [Testify](https://github.com/stretchr/testify) for test matchers
 - [Air](https://github.com/cosmtrek/air) for live reload
+- [Testify](https://github.com/stretchr/testify) for test matchers
+
+Fat free! No npm, npx, yarn, pnpm, webpack, and whatever else the Front End World conjures up.
 
 ## Use as Project Template
 
