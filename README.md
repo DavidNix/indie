@@ -4,13 +4,13 @@ Opinionated Go boilerplate for the indie hacker or early stage projects.
 
 ![indie-logo.png](indie-logo.png)
 
-Why does JS have all the fun?
+Why does JS, Rails, Django, and Phoenix have all the fun?
 
 Let's use a Go stack for quickly building ideas.
 
-Why not Rails, Django, or Phoenix?
+**Important**: This is not a framework. It's boilerplate. A template.
 
-Sure, if you enjoy the hell that is dynamically typed languages.
+After you create your project, use or discard what you wish.
 
 ## The Stack
 
