@@ -2,6 +2,7 @@ package server
 
 import (
 	"fmt"
+	"html"
 	"net/http"
 
 	"github.com/DavidNix/indie/ent"
@@ -27,6 +28,8 @@ func userCreateHandler(client *ent.Client) echo.HandlerFunc {
 		if err != nil {
 			return err
 		}
-		return c.HTML(http.StatusOK, fmt.Sprintf(`<li>%s</li>`, user.Name))
+		// Beware of XSS.
+		escaped := html.EscapeString(user.Name)
+		return c.HTML(http.StatusOK, fmt.Sprintf(`<li>%s</li>`, escaped))
 	}
 }
