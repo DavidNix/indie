@@ -1,7 +1,6 @@
 package server
 
 import (
-	"context"
 	"io"
 	"log/slog"
 	"net/http"
@@ -9,7 +8,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/DavidNix/indie/ent"
+	"github.com/DavidNix/indie/ent/enttest"
 	"github.com/labstack/echo/v4"
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/stretchr/testify/require"
@@ -20,24 +19,10 @@ func TestMain(m *testing.M) {
 	os.Exit(m.Run())
 }
 
-func setupDatabase(t require.TestingT) *ent.Client {
-	const (
-		driver = "sqlite3"
-		dbURL  = "file:indie?mode=memory&cache=shared&_fk=1"
-	)
-	client, err := ent.Open(driver, dbURL)
-	require.NoError(t, err)
-
-	err = client.Schema.Create(context.Background())
-	require.NoError(t, err)
-
-	return client
-}
-
 func TestExample(t *testing.T) {
 	t.Parallel()
 
-	client := setupDatabase(t)
+	client := enttest.Open(t, enttest.Driver, enttest.URL)
 
 	app := NewApp(client)
 
