@@ -10,7 +10,7 @@ require (
 	github.com/mattn/go-sqlite3 v1.14.17
 	github.com/samber/lo v1.38.1
 	github.com/samber/slog-echo v1.8.0
-	github.com/spf13/cobra v1.7.0
+	github.com/spf13/cobra v1.8.0
 	github.com/stretchr/testify v1.8.4
 )
 
