@@ -3,7 +3,7 @@ module github.com/DavidNix/indie
 go 1.21
 
 require (
-	entgo.io/ent v0.12.4
+	entgo.io/ent v0.12.5
 	github.com/a-h/templ v0.2.432
 	github.com/cosmtrek/air v1.49.0
 	github.com/labstack/echo/v4 v4.11.2
