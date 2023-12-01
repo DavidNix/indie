@@ -6,7 +6,7 @@ require (
 	entgo.io/ent v0.12.4
 	github.com/a-h/templ v0.2.432
 	github.com/cosmtrek/air v1.49.0
-	github.com/labstack/echo/v4 v4.11.2
+	github.com/labstack/echo/v4 v4.11.3
 	github.com/mattn/go-sqlite3 v1.14.17
 	github.com/samber/lo v1.38.1
 	github.com/samber/slog-echo v1.8.0
