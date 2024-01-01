@@ -7,7 +7,7 @@ require (
 	github.com/a-h/templ v0.2.476
 	github.com/cosmtrek/air v1.49.0
 	github.com/labstack/echo/v4 v4.11.3
-	github.com/mattn/go-sqlite3 v1.14.18
+	github.com/mattn/go-sqlite3 v1.14.19
 	github.com/samber/lo v1.39.0
 	github.com/samber/slog-echo v1.9.0
 	github.com/spf13/cobra v1.8.0
