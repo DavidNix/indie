@@ -4,7 +4,7 @@ go 1.21
 
 require (
 	entgo.io/ent v0.12.5
-	github.com/a-h/templ v0.2.476
+	github.com/a-h/templ v0.2.543
 	github.com/cosmtrek/air v1.49.0
 	github.com/labstack/echo/v4 v4.11.3
 	github.com/mattn/go-sqlite3 v1.14.18
