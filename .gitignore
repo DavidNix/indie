@@ -20,5 +20,5 @@
 # Go workspace file
 go.work
 
-# Air artifacts
-/tmp
+# Templ generated files
+*_templ.go
