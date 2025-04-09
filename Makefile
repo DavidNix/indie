@@ -7,8 +7,12 @@ help: ## Print this help message
 .PHONY: setup
 setup: ## Setup your local dev environment. Run this once after cloning the repo.
 	@# golangci-lint does not recommend using `go get` to install
-	brew install golangci-lint
+	@brew install golangci-lint
 	brew upgrade golangci-lint
+	@mkdir -p .git/hooks
+	@cp script/pre-push .git/hooks/pre-push
+	@chmod +x .git/hooks/pre-push
+	@go get -tool -tags 'sqlite3' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
 
 .PHONY: run
 run: ## Run the app
@@ -24,16 +28,5 @@ test: ## Run unit tests
 
 .PHONY: gen
 gen: ## Generate code
-	@go generate ./...
-
-AIR = go run -mod=readonly github.com/cosmtrek/air
-.PHONY: watch
-watch: ## Watch and reload code changes
-	@$(AIR)
-
-.PHONY: ent
-ent: ## Run ent codegen. E.g. make ent new User
-	@go run -mod=readonly entgo.io/ent/cmd/ent $(filter-out $@,$(MAKECMDGOALS))
-
-%: # Catch-all target to allow passing arguments to targets without workarounds like ARGS="1 2 3"
-	@:
+	go generate ./...
+	go tool goimports -w .

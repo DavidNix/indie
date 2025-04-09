@@ -7,7 +7,6 @@ import (
 )
 
 func main() {
-	// Run root command
 	ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt)
 	err := rootCmd().ExecuteContext(ctx)
 	cancel()
