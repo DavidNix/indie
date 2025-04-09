@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# Put this script in dir .git/hooks
+# $ cp script/pre-push .git/hooks
+
+set -eou pipefail
+
+current_branch=$(git symbolic-ref --short HEAD)
+
+if [ "$current_branch" = "main" ]; then
+  echo "You are on the main branch, running pre-push checks..."
+
+  make gen
+
+  # Check for unstaged changes
+  if ! git diff --quiet; then
+    echo "There are unstaged changes. Please commit or stash them."
+    exit 1
+  fi
+
+  # Check for staged but uncommitted changes
+  if ! git diff --cached --quiet; then
+    echo "There are staged but uncommitted changes. Please commit them."
+    exit 1
+  fi
+
+  if [ $? -ne 0 ]; then
+    echo "Pre-push checks failed. Aborting push."
+    exit 1
+  fi
+
+  echo "Running tests..."
+  make vet test
+fi
+
+exit 0
