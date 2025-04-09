@@ -14,10 +14,6 @@ setup: ## Setup your local dev environment. Run this once after cloning the repo
 	@chmod +x .git/hooks/pre-push
 	@go get -tool -tags 'sqlite3' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
 
-.PHONY: run
-run: ## Run the app
-	@GOEXPERIMENT=loopvar go run -mod=readonly -race . --addr localhost:3000
-
 .PHONY: vet
 vet: ## Run vet and linters
 	golangci-lint run
