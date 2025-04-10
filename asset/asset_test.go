@@ -6,14 +6,14 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestImageSrc(t *testing.T) {
+func TestPath(t *testing.T) {
 	t.Parallel()
 
 	t.Run("no cache key", func(t *testing.T) {
 		cacheKey = ""
 		imgPath := "example.png"
 		want := "example.png"
-		got := ImageSrc(imgPath)
+		got := Path(imgPath)
 		require.Equal(t, want, got)
 	})
 
@@ -21,7 +21,7 @@ func TestImageSrc(t *testing.T) {
 		cacheKey = "123"
 		imgPath := "example.png?size=large"
 		want := "example.png?size=large&v=123"
-		got := ImageSrc(imgPath)
+		got := Path(imgPath)
 		require.Equal(t, want, got)
 	})
 
@@ -29,7 +29,7 @@ func TestImageSrc(t *testing.T) {
 		cacheKey = "123"
 		imgPath := "example.png"
 		want := "example.png?v=123"
-		got := ImageSrc(imgPath)
+		got := Path(imgPath)
 		require.Equal(t, want, got)
 	})
 }
