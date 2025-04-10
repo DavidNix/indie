@@ -5,7 +5,9 @@ import "strings"
 var cacheKey string
 
 // SetCacheKey sets a cache busting key that will be appended to asset URLs.
+// A good cache key is your app version or git hash.
 // This helps force browsers to download fresh copies of assets when the key changes.
+// Warning: Not Goroutine safe. Set once in main().
 func SetCacheKey(key string) {
 	cacheKey = key
 }
