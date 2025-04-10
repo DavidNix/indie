@@ -1,0 +1,3 @@
+package asset
+
+func ImageSrc() {}
