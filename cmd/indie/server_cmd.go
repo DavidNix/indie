@@ -9,6 +9,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/DavidNix/indie/asset"
 	"github.com/DavidNix/indie/internal/server"
 	"github.com/DavidNix/indie/internal/version"
 	"github.com/spf13/cobra"
@@ -26,6 +27,8 @@ func serverCmd() *cobra.Command {
 
 func runServer(cmd *cobra.Command, args []string) error {
 	ctx := cmd.Context()
+
+	asset.SetCacheKey(version.Version())
 
 	app := server.AppBuilder{}.Build()
 

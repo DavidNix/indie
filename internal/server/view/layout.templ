@@ -1,14 +1,25 @@
 package view
 
-templ Layout(title string) {
+import (
+	"github.com/DavidNix/indie/asset"
+	"github.com/labstack/echo/v4"
+)
+
+templ Layout(c echo.Context, title string, description string) {
 	<!DOCTYPE html>
 	<html lang="en">
 		<head>
 			<meta charset="UTF-8"/>
+			<title>{ title }</title>
+			<meta name="description" content={ description }/>
+			<link rel="canonical" href={ "https://changeme.example.com" + c.Request().URL.Path }/>
+			<link rel="icon" href={ asset.Path("/public/favicon-16x16.png") } sizes="16x16" type="image/png"/>
+			<link rel="icon" href={ asset.Path("/public/favicon-32x32.png") } sizes="32x32" type="image/png"/>
 			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 			<meta http-equiv="X-UA-Compatible" content="ie=edge"/>
 			<script src="https://unpkg.com/htmx.org@1.9.8" integrity="sha384-rgjA7mptc2ETQqXoYC3/zJvkU7K/aP44Y+z7xQuJiVnB/422P/Ak+F/AqFR7E4Wr" crossorigin="anonymous"></script>
-			<title>Example - { title }</title>
+			<link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css"/>
+			<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 		</head>
 		<body>
 			<main>
@@ -17,3 +28,4 @@ templ Layout(title string) {
 		</body>
 	</html>
 }
+
