@@ -12,7 +12,7 @@ import (
 func TestRobotsTxt(t *testing.T) {
 	t.Parallel()
 
-	app := NewApp(nil)
+	app := AppBuilder{}.Build()
 
 	req := httptest.NewRequest(http.MethodGet, "/robots.txt", nil)
 	w := httptest.NewRecorder()
@@ -27,7 +27,7 @@ func TestRobotsTxt(t *testing.T) {
 func TestSitemap(t *testing.T) {
 	t.Parallel()
 
-	app := NewApp(nil)
+	app := AppBuilder{}.Build()
 
 	req := httptest.NewRequest(http.MethodGet, "/sitemap.xml", nil)
 	w := httptest.NewRecorder()
