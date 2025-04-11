@@ -26,6 +26,9 @@ go.work
 /release
 /release-linux
 
+# Tailwind generated
+/internal/server/public/styles.css
+
 # Node.js dependencies
 node_modules/
 npm-debug.log*

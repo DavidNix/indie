@@ -13,8 +13,7 @@ setup: ## Setup your local dev environment. Run this once after cloning the repo
 	cp script/pre-push .git/hooks/pre-push
 	chmod +x .git/hooks/pre-push
 	go get -tool -tags 'sqlite3' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
-	npm install -D tailwindcss@latest
-	npm install -D daisyui@latest
+	npm install -D tailwindcss@latest tailwindcss@latest
 
 .PHONY: vet
 vet: ## Run vet and linters
@@ -28,6 +27,10 @@ test: ## Run unit tests
 gen: ## Generate code
 	go generate ./...
 	go tool goimports -w .
+
+.PHONY: css
+css:
+	npx @tailwindcss/cli -i ./internal/server/css/input.css -o ./internal/server/public/styles.css --watch
 
 .PHONY: watch
 watch: ## Watch and reload code changes
