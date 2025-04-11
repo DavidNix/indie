@@ -40,7 +40,7 @@ func runServer(cmd *cobra.Command, args []string) error {
 	var eg errgroup.Group
 
 	eg.Go(func() error {
-		slog.Info("Starting server", "address", srv.Addr, "version", version.Version)
+		slog.Info("Starting server", "address", srv.Addr, "version", version.Version())
 		return srv.ListenAndServe()
 	})
 
