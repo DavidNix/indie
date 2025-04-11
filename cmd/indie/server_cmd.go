@@ -4,7 +4,6 @@ import (
 	"cmp"
 	"context"
 	"errors"
-	"fmt"
 	"log/slog"
 	"net/http"
 	"os"
@@ -30,7 +29,6 @@ func runServer(cmd *cobra.Command, args []string) error {
 
 	app := server.AppBuilder{}.Build()
 
-	fmt.Print("PORT", cmp.Or(os.Getenv("PORT"), "3000"))
 	srv := &http.Server{
 		Addr:         ":" + cmp.Or(os.Getenv("PORT"), "3000"),
 		ReadTimeout:  60 * time.Second,
