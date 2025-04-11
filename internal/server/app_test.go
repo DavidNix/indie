@@ -21,8 +21,7 @@ func TestMain(m *testing.M) {
 func TestExample(t *testing.T) {
 	t.Parallel()
 
-	app := &App{}
-	app.Build()
+	app := AppBuilder{}.Build()
 
 	req := httptest.NewRequest(http.MethodGet, "/", nil)
 	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
