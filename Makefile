@@ -30,7 +30,7 @@ gen: ## Generate code
 
 .PHONY: css
 css:
-	npx @tailwindcss/cli -i ./internal/server/css/input.css -o ./internal/server/public/styles.css --watch
+	npx @tailwindcss/cli -i ./internal/server/css/app.css -o ./internal/server/public/styles.css --watch
 
 .PHONY: watch
 watch: ## Watch and reload code changes
