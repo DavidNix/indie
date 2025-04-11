@@ -35,21 +35,22 @@ watch: ## Watch and reload code changes
 overmind: ## Run Procfile runner
 	 go tool overmind start -f Procfile.dev
 
-APP_NAME := indie
 GO_PKG := github.com/DavidNix/indie
 
 .PHONY: build
 build: ## Build local app
+	@mkdir -p release
 	go build -tags prod \
     -ldflags "-extldflags=-static -s -X $(GO_PKG)/internal/version.Version=$(git describe --tags --always --dirty)" \
-    -o $(APP_NAME) .
+    -o release/... ./cmd/...
 
 .PHONY: build-linux-amd64
 build-linux-amd64: ## Cross compile app for linux amd64 using zig
+	@mkdir -p release-linux
 	CGO_ENABLED=1 \
     GOOS=linux \
     GOARCH=amd64 \
     CC="zig cc -target x86_64-linux-musl" \
     go build -tags sqlite_omit_load_extension,prod \
     -ldflags "-extldflags=-static -s -X $(GO_PKG)/internal/version.Version=$(git describe --tags --always --dirty)" \
-    -o $(APP_NAME) .
+    -o release-linux/... ./cmd/...
