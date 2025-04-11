@@ -8,7 +8,7 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 )
 
-func csrfHeader(c echo.Context) string {
+func csrfHTMX(c echo.Context) string {
 	return fmt.Sprintf(`{"X-CSRF-Token": %q}`, c.Get(middleware.DefaultCSRFConfig.ContextKey).(string))
 }
 

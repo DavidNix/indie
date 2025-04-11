@@ -9,7 +9,7 @@ import (
 	slogecho "github.com/samber/slog-echo"
 )
 
-func (app *App) registerRoutes(mux *echo.Echo) {
+func (builder *AppBuilder) registerRoutes(mux *echo.Echo) {
 	csrfMiddleware := middleware.CSRFWithConfig(middleware.CSRFConfig{
 		TokenLookup:    "header:X-CSRF-Token,header:HX-CSRF-Token,form:_csrf",
 		CookieName:     "_csrf",
@@ -17,7 +17,7 @@ func (app *App) registerRoutes(mux *echo.Echo) {
 		CookieDomain:   "", // Explicitly set to empty to use current domain only
 		CookieMaxAge:   86400,
 		CookieSameSite: http.SameSiteStrictMode,
-		CookieSecure:   app.Environment != "dev",
+		CookieSecure:   builder.Environment != "dev",
 		CookieHTTPOnly: true,
 		// Example of how to allow payment processor webhooks
 		// Skipper: func(c echo.Context) bool {
