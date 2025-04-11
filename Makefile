@@ -26,3 +26,14 @@ test: ## Run unit tests
 gen: ## Generate code
 	go generate ./...
 	go tool goimports -w .
+
+.PHONY: watch
+watch: ## Watch and reload code changes
+	go tool templ generate --watch --proxy="http://localhost:3000" --cmd='go run -mod=readonly -race .'
+
+.PHONY: overmind
+overmind: ## Run Procfile runner
+	 go tool overmind start -f Procfile.dev
+
+.PHONY: build-amd64
+build-amd64:
