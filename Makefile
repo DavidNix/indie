@@ -36,22 +36,24 @@ overmind: ## Run Procfile runner
 	 go tool overmind start -f Procfile.dev
 
 GO_PKG := github.com/DavidNix/indie
-VERSION := $(shell git describe --tags --always --dirty)"
+VERSION := $(shell git describe --tags --always --dirty)
 
 .PHONY: build
 build: ## Build local app
+	@echo "Building $(VERSION)"
 	@mkdir -p release
 	go build -tags prod \
-    -ldflags "-extldflags=-static -s -X $(GO_PKG)/internal/version.Version=$(VERSION) \
+    -ldflags "-extldflags=-static -s -X $(GO_PKG)/internal/version.V=$(VERSION)" \
     -o ./release ./cmd/...
 
 .PHONY: build-linux-amd64
 build-linux-amd64: ## Cross compile app for linux amd64 using zig
+	@echo "Building $(VERSION)"
 	@mkdir -p release-linux
 	CGO_ENABLED=1 \
     GOOS=linux \
     GOARCH=amd64 \
     CC="zig cc -target x86_64-linux-musl" \
     go build -tags sqlite_omit_load_extension,prod \
-    -ldflags "-extldflags=-static -s -X $(GO_PKG)/internal/version.Version=$(VERSION)" \
+    -ldflags "-extldflags=-static -s -X $(GO_PKG)/internal/version.V=$(VERSION)" \
     -o release-linux ./cmd/...

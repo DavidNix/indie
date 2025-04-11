@@ -12,7 +12,7 @@ import (
 func main() {
 	root := cobra.Command{
 		Short:   "My awesome app",
-		Version: version.Version,
+		Version: version.Version(),
 	}
 	root.AddCommand(
 		serverCmd(),
