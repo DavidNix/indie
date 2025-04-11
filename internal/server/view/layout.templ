@@ -17,15 +17,22 @@ templ Layout(c echo.Context, title string, description string) {
 			<link rel="canonical" href={ GetSiteInfo(c).Host + c.Request().URL.Path }/>
 			<link rel="icon" href={ asset.Path("/public/favicon-16x16.png") } sizes="16x16" type="image/png"/>
 			<link rel="icon" href={ asset.Path("/public/favicon-32x32.png") } sizes="32x32" type="image/png"/>
+			<!-- Frontend -->
 			<script src="https://unpkg.com/htmx.org@1.9.8" integrity="sha384-rgjA7mptc2ETQqXoYC3/zJvkU7K/aP44Y+z7xQuJiVnB/422P/Ak+F/AqFR7E4Wr" crossorigin="anonymous"></script>
 			<link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css"/>
 			<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+			<!-- Open Graph -->
 			<meta property="og:type" content="website"/>
 			<meta property="og:title" content={ title }/>
 			<meta property="og:description" content={ description }/>
 			<meta property="og:url" content={ GetSiteInfo(c).Host + c.Request().URL.Path }/>
 			<meta property="og:site_name" content={ GetSiteInfo(c).Name }/>
 			<meta property="og:locale" content="en_US"/>
+			<meta property="og:image" content={ GetSiteInfo(c).Host + asset.Path("/public/og-image.png") }/>
+			<meta property="og:image:type" content="image/png"/>
+			<meta property="og:image:width" content="1200"/>
+			<meta property="og:image:height" content="630"/>
+			<meta property="og:image:alt" content={ description }/>
 		</head>
 		<body>
 			<main>
