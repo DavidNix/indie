@@ -7,6 +7,8 @@ import (
 )
 
 type AppBuilder struct {
+	SiteName    string
+	PrimaryHost string
 	Environment string
 }
 

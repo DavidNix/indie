@@ -30,7 +30,11 @@ func runServer(cmd *cobra.Command, args []string) error {
 
 	asset.SetCacheKey(version.Version())
 
-	app := server.AppBuilder{}.Build()
+	app := server.AppBuilder{
+		Environment: cmp.Or(os.Getenv("ENVIRONMENT"), "dev"),
+		SiteName:    os.Getenv("SITE_NAME"),
+		PrimaryHost: os.Getenv("PRIMARY_HOST"),
+	}.Build()
 
 	srv := &http.Server{
 		Addr:         ":" + cmp.Or(os.Getenv("PORT"), "3000"),

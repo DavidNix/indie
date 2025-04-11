@@ -4,6 +4,7 @@ import (
 	"log/slog"
 	"net/http"
 
+	"github.com/DavidNix/indie/internal/server/view"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	slogecho "github.com/samber/slog-echo"
@@ -26,6 +27,10 @@ func (builder *AppBuilder) registerRoutes(mux *echo.Echo) {
 	})
 
 	mux.Use(
+		view.SetSiteInfo(view.SiteInfo{
+			Name: builder.SiteName,
+			Host: builder.PrimaryHost,
+		}),
 		middleware.RequestID(),
 		slogecho.New(slog.Default()),
 		middleware.Recover(),
