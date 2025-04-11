@@ -18,9 +18,8 @@ templ Layout(c echo.Context, title string, description string) {
 			<link rel="icon" href={ asset.Path("/public/favicon-16x16.png") } sizes="16x16" type="image/png"/>
 			<link rel="icon" href={ asset.Path("/public/favicon-32x32.png") } sizes="32x32" type="image/png"/>
 			<!-- Frontend -->
-			<script src="https://unpkg.com/htmx.org@1.9.8" integrity="sha384-rgjA7mptc2ETQqXoYC3/zJvkU7K/aP44Y+z7xQuJiVnB/422P/Ak+F/AqFR7E4Wr" crossorigin="anonymous"></script>
-			<link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css"/>
-			<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+			<link rel="stylesheet" href={ asset.Path("/public/styles.css") }/>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/htmx/2.0.4/htmx.min.js" integrity="sha512-2kIcAizYXhIn8TzUvqzEDZNuDZ+aW7yE/+f1HJHXFjQcGNfv1kqzJSTBRBSlOgp6B/KZsz1K0a3ZTqP9dnxioQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 			<!-- Open Graph -->
 			<meta property="og:type" content="website"/>
 			<meta property="og:title" content={ title }/>
