@@ -1,7 +1,6 @@
 package email
 
 import (
-	"context"
 	"fmt"
 	"os"
 	"testing"
@@ -31,25 +30,25 @@ func TestTransactionalClient_Send(t *testing.T) {
 			PlainText: "Hello World",
 		}
 
-		err := client.Send(context.Background(), content)
+		err := client.Send(t.Context(), content)
 		require.NoError(t, err)
 		require.NotNil(t, renderer.gotWriter, "renderer should have received a writer")
 
 		trackingSettings := NewTrackingSettings()
 		trackingSettings.ClickTracking = mail.NewClickTrackingSetting().SetEnable(true)
-		err = client.Send(context.Background(), content, WithTrackingSettings(trackingSettings))
+		err = client.Send(t.Context(), content, WithTrackingSettings(trackingSettings))
 		require.NoError(t, err)
 		require.NotNil(t, renderer.gotWriter, "renderer should have received a writer")
 
 		mailSettings := NewMailSettings()
 		mailSettings.Footer = mail.NewFooterSetting().SetEnable(false)
-		err = client.Send(context.Background(), content, WithMailSettings(mailSettings))
+		err = client.Send(t.Context(), content, WithMailSettings(mailSettings))
 		require.NoError(t, err)
 		require.NotNil(t, renderer.gotWriter, "renderer should have received a writer")
 
 		// With nil html
 		content.HTML = nil
-		err = client.Send(context.Background(), content)
+		err = client.Send(t.Context(), content)
 		require.NoError(t, err)
 	})
 
@@ -64,7 +63,7 @@ func TestTransactionalClient_Send(t *testing.T) {
 			PlainText: "Hello World",
 		}
 
-		err := client.Send(context.Background(), content)
+		err := client.Send(t.Context(), content)
 		require.Error(t, err)
 		require.EqualError(t, err, "render html: render failed")
 	})

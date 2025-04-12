@@ -45,26 +45,26 @@ func TestMarketingClient_Send(t *testing.T) {
 			PlainText: "Hello World",
 		}
 
-		err := client.Send(context.Background(), content, 123)
+		err := client.Send(t.Context(), content, 123)
 		require.NoError(t, err)
 		require.NotNil(t, renderer.gotWriter, "renderer should have received a writer")
 
 		trackingSettings := NewTrackingSettings()
 		trackingSettings.ClickTracking = mail.NewClickTrackingSetting().SetEnable(true)
-		err = client.Send(context.Background(), content, 123, WithTrackingSettings(trackingSettings))
+		err = client.Send(t.Context(), content, 123, WithTrackingSettings(trackingSettings))
 		require.NoError(t, err)
 		require.NotNil(t, renderer.gotWriter, "renderer should have received a writer")
 
 		// With settings
 		mailSettings := NewMailSettings()
 		mailSettings.Footer = mail.NewFooterSetting().SetEnable(false)
-		err = client.Send(context.Background(), content, 123, WithMailSettings(mailSettings))
+		err = client.Send(t.Context(), content, 123, WithMailSettings(mailSettings))
 		require.NoError(t, err)
 		require.NotNil(t, renderer.gotWriter, "renderer should have received a writer")
 
 		// With nil html
 		content.HTML = nil
-		err = client.Send(context.Background(), content, 123)
+		err = client.Send(t.Context(), content, 123)
 		require.NoError(t, err)
 	})
 
@@ -79,7 +79,7 @@ func TestMarketingClient_Send(t *testing.T) {
 			PlainText: "Hello World",
 		}
 
-		err := client.Send(context.Background(), content, -1)
+		err := client.Send(t.Context(), content, -1)
 		require.Error(t, err)
 		require.Contains(t, err.Error(), "missing unsubscribe group")
 	})
@@ -95,7 +95,7 @@ func TestMarketingClient_Send(t *testing.T) {
 			PlainText: "Hello World",
 		}
 
-		err := client.Send(context.Background(), content, 456)
+		err := client.Send(t.Context(), content, 456)
 		require.Error(t, err)
 		require.Contains(t, err.Error(), "unsubscribe group 456 not in allowed groups")
 	})
@@ -111,7 +111,7 @@ func TestMarketingClient_Send(t *testing.T) {
 			PlainText: "Hello World",
 		}
 
-		err := client.Send(context.Background(), content, 123)
+		err := client.Send(t.Context(), content, 123)
 		require.Error(t, err)
 		require.EqualError(t, err, "render html: render failed")
 	})
