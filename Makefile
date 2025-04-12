@@ -62,3 +62,26 @@ build-linux-amd64: ## Cross compile app for linux amd64 using zig
     go build -tags sqlite_omit_load_extension,prod \
     -ldflags "-extldflags=-static -s -X $(GO_PKG)/internal/version.V=$(VERSION)" \
     -o release-linux ./cmd/...
+
+# DATABASE MIGRATIONS
+
+MIGRATIONS_PATH := internal/database/migrations
+
+.PHONY: db-migrate-new
+db-migrate-new: ## Create a new application database migration file. E.g. make db-migrate-new NAME=create_domains_table
+	go tool migrate create -ext sql -dir $(MIGRATIONS_PATH) $(NAME)
+
+DB_MIGRATE := go tool migrate -path $(MIGRATIONS_PATH) -database "$(DATABASE_URL)"
+
+.PHONY: db-migrate-up
+db-migrate-up: ## Migrate the application database up
+	@$(DB_MIGRATE) up
+
+.PHONY: db-migrate-force
+db-migrate-force: ## Force the application database up to a specific version. E.g. make db-migrate-force VERSION=1
+	@$(DB_MIGRATE) force $(VERSION)
+
+.PHONY: db-migrate-down
+db-migrate-down: ## Migrate the application database down
+	@echo "This is irreversible. Are you sure? (yes/no)"
+	@read confirm && if [ $$confirm == "yes" ]; then $(DB_MIGRATE) down 1; else echo "Cancelled" && exit 0; fi
