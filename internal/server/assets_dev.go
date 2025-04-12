@@ -8,10 +8,5 @@ import (
 )
 
 func assetsFS() fs.FS {
-	dir := os.DirFS("internal/server/public")
-	sub, err := fs.Sub(dir, "internal/server/public")
-	if err != nil {
-		panic(err)
-	}
-	return sub
+	return os.DirFS("internal/server/static")
 }

@@ -26,14 +26,14 @@ func TestHandler(t *testing.T) {
 
 	t.Run("with embedded fs", func(t *testing.T) {
 		e := echo.New()
-		req := httptest.NewRequest(http.MethodGet, "/"+testFileName, nil)
+		req := httptest.NewRequest(http.MethodGet, "/static/"+testFileName, nil)
 		rec := httptest.NewRecorder()
 		c := e.NewContext(req, rec)
 
 		sub, err := fs.Sub(embeddedFS, "testdata")
 		require.NoError(t, err)
 
-		handler := Handler(sub)
+		handler := Handler("/static", sub)
 		err = handler(c)
 		require.NoError(t, err)
 
@@ -51,7 +51,7 @@ func TestHandler(t *testing.T) {
 		rec := httptest.NewRecorder()
 		c := e.NewContext(req, rec)
 
-		handler := Handler(dirFS)
+		handler := Handler("", dirFS)
 		err := handler(c)
 		require.NoError(t, err)
 
@@ -67,7 +67,7 @@ func TestHandler(t *testing.T) {
 		rec := httptest.NewRecorder()
 		c := e.NewContext(req, rec)
 
-		handler := Handler(embeddedFS)
+		handler := Handler("", embeddedFS)
 		err := handler(c)
 		require.NoError(t, err)
 

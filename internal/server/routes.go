@@ -48,7 +48,7 @@ func (builder *AppBuilder) registerRoutes(mux *echo.Echo) {
 	)
 
 	// Assets
-	mux.GET("/static", asset.Handler(assetsFS()))
+	mux.GET("/static/*", asset.Handler("/static", assetsFS()))
 
 	// SEO
 	mux.GET("/robots.txt", robotsHandler)
