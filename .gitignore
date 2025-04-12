@@ -27,7 +27,7 @@ go.work
 /release-linux
 
 # Tailwind generated
-/internal/server/public/styles.css
+/internal/server/static/styles.css
 
 # Node.js dependencies
 node_modules/
