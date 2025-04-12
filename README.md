@@ -28,7 +28,7 @@ gonew github.com/DavidNix/indie github.com/<YOUR_USER>/<YOUR_PROJECT_NAME>
 
 ## Library
 
-TODO
+See the sub-packages in the go doc. [![Go Reference](https://pkg.go.dev/badge/github.com/DavidNix/indie.svg)](https://pkg.go.dev/github.com/DavidNix/indie)
 
 ## The Stack
 
