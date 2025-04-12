@@ -37,7 +37,7 @@ func runServer(cmd *cobra.Command, args []string) error {
 	}.Build()
 
 	srv := &http.Server{
-		Addr:         ":" + cmp.Or(os.Getenv("PORT"), "3000"),
+		Addr:         ":" + cmp.Or(os.Getenv("SERVER_PORT"), "3000"),
 		ReadTimeout:  60 * time.Second,
 		WriteTimeout: 60 * time.Second,
 		IdleTimeout:  120 * time.Second,
