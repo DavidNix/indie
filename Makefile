@@ -30,11 +30,11 @@ gen: ## Generate code
 
 .PHONY: css
 css:
-	npx @tailwindcss/cli -i ./internal/server/css/app.css -o ./internal/server/public/styles.css --watch
+	npx @tailwindcss/cli -i ./internal/server/css/app.css -o ./internal/server/static/styles.css --watch
 
 .PHONY: watch
 watch: ## Watch and reload code changes
-	go tool templ generate --watch --proxy="http://localhost:3000" --cmd='go run -mod=readonly -race .'
+	go tool templ generate --watch --proxy="http://localhost:3000" --cmd='go run -mod=readonly -race ./cmd/indie/... server'
 
 .PHONY: overmind
 overmind: ## Run Procfile runner

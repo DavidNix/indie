@@ -4,6 +4,7 @@ import (
 	"log/slog"
 	"net/http"
 
+	"github.com/DavidNix/indie/asset"
 	"github.com/DavidNix/indie/internal/server/view"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -46,12 +47,15 @@ func (builder *AppBuilder) registerRoutes(mux *echo.Echo) {
 		middleware.BodyLimit("1M"),
 	)
 
+	// Assets
+	mux.GET("/static", asset.Handler(assetsFS()))
+
 	// SEO
 	mux.GET("/robots.txt", robotsHandler)
 	mux.GET("/sitemap.xml", sitemapHandler)
 
 	// Routes
 	mux.GET("/", func(c echo.Context) error {
-		return c.String(http.StatusOK, "Hello, World 👋!")
+		return view.Render(c, view.Hello(c))
 	})
 }

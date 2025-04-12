@@ -1,0 +1,12 @@
+package view
+
+import "github.com/labstack/echo/v4"
+
+templ Hello(c echo.Context) {
+	@Layout(c, "Hello World", "A simple hello world page") {
+		<div class="container mx-auto p-8">
+			<h1 class="text-4xl font-bold mb-4">Hello, World!</h1>
+			<p class="text-lg">Welcome to my website.</p>
+		</div>
+	}
+}

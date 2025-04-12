@@ -7,7 +7,7 @@ import (
 
 templ Layout(c echo.Context, title string, description string) {
 	<!DOCTYPE html>
-	<html lang="en">
+	<html lang="en" data-theme="halloween">
 		<head>
 			<meta charset="UTF-8"/>
 			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -15,10 +15,10 @@ templ Layout(c echo.Context, title string, description string) {
 			<title>{ title }</title>
 			<meta name="description" content={ description }/>
 			<link rel="canonical" href={ GetSiteInfo(c).Host + c.Request().URL.Path }/>
-			<link rel="icon" href={ asset.Path("/public/favicon-16x16.png") } sizes="16x16" type="image/png"/>
-			<link rel="icon" href={ asset.Path("/public/favicon-32x32.png") } sizes="32x32" type="image/png"/>
+			<link rel="icon" href={ asset.Path("/static/favicon-16x16.png") } sizes="16x16" type="image/png"/>
+			<link rel="icon" href={ asset.Path("/static/favicon-32x32.png") } sizes="32x32" type="image/png"/>
 			<!-- Frontend -->
-			<link rel="stylesheet" href={ asset.Path("/public/styles.css") }/>
+			<link rel="stylesheet" href={ asset.Path("/static/styles.css") }/>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/htmx/2.0.4/htmx.min.js" integrity="sha512-2kIcAizYXhIn8TzUvqzEDZNuDZ+aW7yE/+f1HJHXFjQcGNfv1kqzJSTBRBSlOgp6B/KZsz1K0a3ZTqP9dnxioQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 			<!-- Open Graph -->
 			<meta property="og:type" content="website"/>
@@ -27,7 +27,7 @@ templ Layout(c echo.Context, title string, description string) {
 			<meta property="og:url" content={ GetSiteInfo(c).Host + c.Request().URL.Path }/>
 			<meta property="og:site_name" content={ GetSiteInfo(c).Name }/>
 			<meta property="og:locale" content="en_US"/>
-			<meta property="og:image" content={ GetSiteInfo(c).Host + asset.Path("/public/og-image.png") }/>
+			<meta property="og:image" content={ GetSiteInfo(c).Host + asset.Path("/static/og-image.png") }/>
 			<meta property="og:image:type" content="image/png"/>
 			<meta property="og:image:width" content="1200"/>
 			<meta property="og:image:height" content="630"/>
