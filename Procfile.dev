@@ -1,0 +1,2 @@
+app: source .envrc && make watch 
+css: make css

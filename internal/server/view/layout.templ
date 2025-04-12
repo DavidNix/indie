@@ -1,0 +1,75 @@
+package view
+
+import (
+	"github.com/DavidNix/indie/asset"
+	"github.com/labstack/echo/v4"
+)
+
+templ Layout(c echo.Context, title string, description string) {
+	<!DOCTYPE html>
+	<html lang="en" data-theme="halloween">
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+			<title>{ title }</title>
+			<meta name="description" content={ description }/>
+			<link rel="canonical" href={ GetSiteInfo(c).Host + c.Request().URL.Path }/>
+			<link rel="icon" href={ asset.Path("/static/favicon-16x16.png") } sizes="16x16" type="image/png"/>
+			<link rel="icon" href={ asset.Path("/static/favicon-32x32.png") } sizes="32x32" type="image/png"/>
+			<!-- Frontend -->
+			<link rel="stylesheet" href={ asset.Path("/static/styles.css") }/>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/htmx/2.0.4/htmx.min.js" integrity="sha512-2kIcAizYXhIn8TzUvqzEDZNuDZ+aW7yE/+f1HJHXFjQcGNfv1kqzJSTBRBSlOgp6B/KZsz1K0a3ZTqP9dnxioQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+			<!-- Open Graph -->
+			<meta property="og:type" content="website"/>
+			<meta property="og:title" content={ title }/>
+			<meta property="og:description" content={ description }/>
+			<meta property="og:url" content={ GetSiteInfo(c).Host + c.Request().URL.Path }/>
+			<meta property="og:site_name" content={ GetSiteInfo(c).Name }/>
+			<meta property="og:locale" content="en_US"/>
+			<meta property="og:image" content={ GetSiteInfo(c).Host + asset.Path("/static/og-image.png") }/>
+			<meta property="og:image:type" content="image/png"/>
+			<meta property="og:image:width" content="1200"/>
+			<meta property="og:image:height" content="630"/>
+			<meta property="og:image:alt" content={ description }/>
+		</head>
+		<body>
+			<main>
+				{ children... }
+			</main>
+			@htmxListeners()
+		</body>
+	</html>
+}
+
+script htmxListeners() {
+	document.body.addEventListener('htmx:responseError', function (evt) {
+		let errorMessage = 'an unknown error occurred';
+		if (evt.detail.xhr && evt.detail.xhr.response) {
+			try {
+				const response = JSON.parse(evt.detail.xhr.response);
+				errorMessage = response.message || errorMessage;
+			} catch {
+				errorMessage = evt.detail.xhr.response || errorMessage;
+			}
+		}
+
+		const toast = document.getElementById('toast-message');
+		const alert = document.createElement('div');
+		alert.className = 'alert alert-error';
+		alert.innerHTML = `
+					<span>Error: ${errorMessage}</span>
+				`;
+		toast.appendChild(alert);
+
+		setTimeout(() => {
+			alert.remove();
+		}, 5000);
+	});
+
+	document.body.addEventListener('htmx:load', function () {
+		htmx.on("showModal", (evt) => {
+			document.getElementById(evt.detail.value).showModal();
+		});
+	});
+}

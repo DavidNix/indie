@@ -1,0 +1,24 @@
+{
+  "name": "indie",
+  "version": "1.0.0",
+  "description": "Opinionated Go boilerplate for the indie hacker or early stage projects.",
+  "main": "index.js",
+  "devDependencies": {
+    "daisyui": "^5.0.19",
+    "tailwindcss": "^4.1.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DavidNix/indie.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DavidNix/indie/issues"
+  },
+  "homepage": "https://github.com/DavidNix/indie#readme"
+}
